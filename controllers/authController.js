@@ -93,12 +93,19 @@ module.exports.user_auth = (req, res) => {
         });
         console.log("auth failed");
       } else {
-        const user = await User.getUserInfo(decoded.id);
-        res.json({
-          isAuthenticated: true,
-          user: user,
-        });
-        console.log("auth completed");
+        try {
+          const user = await User.getUserInfo(decoded.id);
+          res.json({
+            isAuthenticated: true,
+            user: user,
+          });
+          console.log("auth completed");
+        } catch (error) {
+          console.log("Error: ", error);
+          res.status(500).json({
+            message: "Internal server error",
+          });
+        }
       }
     });
   } else {

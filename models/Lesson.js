@@ -1,20 +1,26 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const pageSchema = new Schema({
-  page_id: Number,
-  title: String,
-  body: String,
-  example: String,
-  translation: String,
-});
-
 const lessonSchema = new Schema({
-  type: String,
-  title: String,
-  chapter: Number,
-  level: Number,
-  page: [pageSchema],
+  title: {
+    type: String,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  lessons: [
+    //array of references to the Vocab and Grammar models
+    {
+      type: Schema.Types.ObjectId,
+      ref: "vocab",
+    },
+    {
+      type: Schema.Types.ObjectId,
+      ref: "grammar",
+    },
+  ],
 });
 
 lessonSchema.statics.getAllLessons = async function () {
@@ -23,6 +29,16 @@ lessonSchema.statics.getAllLessons = async function () {
     return lessons;
   } else {
     throw Error("No lessons found");
+  }
+};
+
+//the below is a static method that will be used to add one lesson to the database
+lessonSchema.statics.addLesson = async function (lesson) {
+  const newLesson = await this.create(lesson);
+  if (newLesson) {
+    return newLesson;
+  } else {
+    throw Error("No lesson added");
   }
 };
 
