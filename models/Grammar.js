@@ -24,23 +24,23 @@ const grammarSchema = new Schema({
   ],
 });
 
-//the below is a static method that will be used to add one grammar to the database
+//the below is a static method that will be used to add one grammar entry to the database
 grammarSchema.statics.addGrammar = async function (grammar) {
   const newGrammar = await this.create(grammar);
   if (newGrammar) {
     return newGrammar;
   } else {
-    throw Error("No grammar added");
+    throw Error("No grammar entry added");
   }
 };
 
-//the below is a static method that will be used to get all grammar from the database
+//the below is a static method that will be used to get all grammar entries from the database
 grammarSchema.statics.getAllGrammar = async function () {
-  const grammar = await this.find({});
-  if (grammar) {
-    return grammar;
+  const grammarList = await this.find({});
+  if (grammarList) {
+    return grammarList;
   } else {
-    throw Error("No grammar found");
+    throw Error("No grammar entries found");
   }
 };
 

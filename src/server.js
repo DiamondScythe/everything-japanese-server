@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("../routes/authRoutes");
 const lessonRoutes = require("../routes/lessonRoutes");
+const adminRoutes = require("../routes/adminRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
@@ -25,7 +26,7 @@ app.use(cookieParser());
 
 const corsOptions = {
   //To allow requests from client
-  origin: ["http://localhost:8080"],
+  origin: ["http://localhost:8080", "http://localhost:8082"],
   credentials: true,
   exposedHeaders: ["set-cookie"],
 };
@@ -50,3 +51,4 @@ app.get("/test", (req, res) => {
 
 app.use(authRoutes);
 app.use(lessonRoutes);
+app.use(adminRoutes);
