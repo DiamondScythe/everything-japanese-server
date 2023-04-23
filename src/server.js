@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const authRoutes = require("../routes/authRoutes");
 const lessonRoutes = require("../routes/lessonRoutes");
 const adminRoutes = require("../routes/adminRoutes");
+const grammarRoutes = require("../routes/grammarRoutes");
+const flashcardRoutes = require("../routes/flashcardRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
@@ -39,8 +41,8 @@ const dbURI = "mongodb://localhost:27017/everything-japanese";
 mongoose
   .connect(dbURI)
   .then((result) => {
-    console.log("connected to db, listening on port 8081");
-    app.listen(8081);
+    console.log("connected to db, listening on port 3000");
+    app.listen(3000);
   })
   .catch((err) => console.log(err));
 
@@ -52,3 +54,5 @@ app.get("/test", (req, res) => {
 app.use(authRoutes);
 app.use(lessonRoutes);
 app.use(adminRoutes);
+app.use(grammarRoutes);
+app.use(flashcardRoutes);

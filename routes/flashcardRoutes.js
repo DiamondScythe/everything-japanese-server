@@ -3,6 +3,7 @@ const flashcardController = require("../controllers/flashcardController.js");
 
 const router = Router();
 
-router.get("/lessons", flashcardController.flashcard_get);
+router.get("/api/allFlashcards/:userId", flashcardController.flashcards_get);
+router.post("/api/addFlashcards", flashcardController.flashcards_post);
 
 module.exports = router;

@@ -48,3 +48,20 @@ module.exports.add_part = async (req, res) => {
     });
   }
 };
+
+module.exports.one_grammar_get = async (req, res) => {
+  //get one grammar entry in a try catch block
+  try {
+    const grammar = await Grammar.findOne({
+      lessonNumber: req.params.id,
+    });
+    res.json({
+      grammar: grammar,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      message: err,
+    });
+  }
+};
