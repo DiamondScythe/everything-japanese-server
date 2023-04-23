@@ -1,11 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const grammarSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
-  },
+const grammarPartSchema = new Schema({
   explanation: {
     type: String,
     required: true,
@@ -22,6 +18,25 @@ const grammarSchema = new Schema({
       },
     },
   ],
+});
+
+const grammarSchema = new Schema({
+  lessonNumber: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  details: {
+    type: String,
+  },
+  parts: {
+    type: [grammarPartSchema],
+    default: [],
+  },
 });
 
 //the below is a static method that will be used to add one grammar entry to the database
@@ -41,6 +56,20 @@ grammarSchema.statics.getAllGrammar = async function () {
     return grammarList;
   } else {
     throw Error("No grammar entries found");
+  }
+};
+
+//the below static will push a new part to the parts array
+grammarSchema.statics.addPart = async function (lessonNumber, part) {
+  const updatedGrammar = await this.findOneAndUpdate(
+    { lessonNumber: lessonNumber },
+    { $push: { parts: part } },
+    { new: true }
+  );
+  if (updatedGrammar) {
+    return updatedGrammar;
+  } else {
+    throw Error("No grammar entry updated");
   }
 };
 

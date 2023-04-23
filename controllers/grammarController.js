@@ -30,3 +30,21 @@ module.exports.grammar_post = async (req, res) => {
     });
   }
 };
+
+module.exports.add_part = async (req, res) => {
+  //add one part to a grammar entry in a try catch block
+  try {
+    const updatedGrammar = await Grammar.addPart(
+      req.body.lessonNumber,
+      req.body.part
+    );
+    res.json({
+      updatedGrammar: updatedGrammar,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      message: err,
+    });
+  }
+};
