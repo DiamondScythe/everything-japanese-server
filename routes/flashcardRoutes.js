@@ -9,5 +9,6 @@ router.get(
   "/api/dueFlashcards/:userId",
   flashcardController.flashcards_due_get
 );
+router.post("/api/gradeFlashcard", flashcardController.grade_card_post);
 
 module.exports = router;

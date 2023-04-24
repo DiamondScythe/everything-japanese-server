@@ -81,13 +81,11 @@ flashcardSchema.statics.addFlashcard = async function (userId, flashcard) {
   }
 };
 
-//the below is a static method that will be used to update a flashcard in the database
-flashcardSchema.statics.updateFlashcard = async function (userId, flashcard) {
-  const updatedFlashcard = await this.findOneAndUpdate(
-    { userId: userId, _id: flashcard._id },
-    flashcard,
-    { new: true }
-  );
+//the below method will be used to update a flashcard in the database with new information
+flashcardSchema.statics.updateFlashcard = async function (flashcardId, update) {
+  const updatedFlashcard = await this.findByIdAndUpdate(flashcardId, update, {
+    new: true,
+  });
   if (updatedFlashcard) {
     return updatedFlashcard;
   } else {
@@ -105,6 +103,16 @@ flashcardSchema.statics.getDueFlashcards = async function (userId) {
     return dueFlashcards;
   } else {
     throw Error("No due flashcards found");
+  }
+};
+
+//the below method get one single flashcard based on the id
+flashcardSchema.statics.getFlashcardById = async function (flashcardId) {
+  const flashcard = await this.findById(flashcardId);
+  if (flashcard) {
+    return flashcard;
+  } else {
+    throw Error("No flashcard found");
   }
 };
 

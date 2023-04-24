@@ -1,4 +1,6 @@
 const Flashcard = require("../models/Flashcard.js");
+const sm2Algorithm = require("../helpers/sm2.js");
+//sm2Algorithm(q, n, EF, I)
 
 //controller actions
 
@@ -56,6 +58,40 @@ module.exports.flashcards_due_get = async (req, res) => {
     res.json({
       flashcards: flashcards,
     });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ message: err });
+  }
+};
+
+//grade a flashcard and update the database
+module.exports.grade_card_post = async (req, res) => {
+  try {
+    const id = req.body.id;
+    const oldCard = await Flashcard.getFlashcardById(id);
+    const Q = req.body.score;
+    const N = oldCard.stats.N;
+    const EF = oldCard.stats.EF;
+    const I = oldCard.stats.I;
+
+    const newStats = sm2Algorithm(Q, N, EF, I);
+
+    const newLastReviewed = new Date();
+    const newNextReview = new Date();
+
+    newNextReview.setDate(newLastReviewed.getDate() + newStats.I);
+
+    const update = {
+      $set: {
+        stats: newStats,
+        lastReviewed: newLastReviewed,
+        nextReview: newNextReview,
+      },
+    };
+
+    //update the flashcard with new information
+    const updatedCard = await Flashcard.updateFlashcard(id, update);
+    res.json(updatedCard);
   } catch (err) {
     console.log(err);
     res.status(400).json({ message: err });
