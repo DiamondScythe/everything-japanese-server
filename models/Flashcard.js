@@ -95,5 +95,18 @@ flashcardSchema.statics.updateFlashcard = async function (userId, flashcard) {
   }
 };
 
+//the below method gets all the flashcards from a certain user that are due for review
+flashcardSchema.statics.getDueFlashcards = async function (userId) {
+  const dueFlashcards = await this.find({
+    userId: userId,
+    nextReview: { $lte: new Date() },
+  });
+  if (dueFlashcards) {
+    return dueFlashcards;
+  } else {
+    throw Error("No due flashcards found");
+  }
+};
+
 const Flashcard = mongoose.model("flashcard", flashcardSchema);
 module.exports = Flashcard;

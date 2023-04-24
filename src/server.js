@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("../routes/authRoutes");
 const lessonRoutes = require("../routes/lessonRoutes");
+const morgan = require("morgan");
 const adminRoutes = require("../routes/adminRoutes");
 const grammarRoutes = require("../routes/grammarRoutes");
 const flashcardRoutes = require("../routes/flashcardRoutes");
@@ -51,6 +52,7 @@ app.get("/test", (req, res) => {
   res.send("Hello World!");
 });
 
+app.use(morgan("dev"));
 app.use(authRoutes);
 app.use(lessonRoutes);
 app.use(adminRoutes);

@@ -2,13 +2,10 @@ const Flashcard = require("../models/Flashcard.js");
 
 //controller actions
 
-//router.get("/api/allFlashcards/:userId", flashcardController.flashcards_get);
-//router.post("/api/addFlashcards", flashcardController.flashcards_post);
-
 //get all flashcards asscoiated with a user id
 module.exports.flashcards_get = async (req, res) => {
   try {
-    const flashcards = await Flashcard.getAllFlashcards(req.user.id);
+    const flashcards = await Flashcard.getAllFlashcards(req.body.id);
     res.json({
       flashcards: flashcards,
     });
@@ -48,5 +45,19 @@ module.exports.flashcards_post = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(400);
+  }
+};
+
+//get all flashcards of a user that are due for review
+module.exports.flashcards_due_get = async (req, res) => {
+  try {
+    console.log(req.params.userId);
+    const flashcards = await Flashcard.getDueFlashcards(req.params.userId);
+    res.json({
+      flashcards: flashcards,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ message: err });
   }
 };
