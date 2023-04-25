@@ -16,6 +16,9 @@ const grammarPartSchema = new Schema({
         type: String,
         required: true,
       },
+      audioFileName: {
+        type: String,
+      },
     },
   ],
 });
@@ -36,6 +39,14 @@ const grammarSchema = new Schema({
   parts: {
     type: [grammarPartSchema],
     default: [],
+  },
+  difficulty: {
+    type: String,
+    required: true,
+  },
+  summary: {
+    type: String,
+    required: true,
   },
 });
 
