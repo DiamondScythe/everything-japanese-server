@@ -49,6 +49,11 @@ const flashcardSchema = new Schema({
     type: Date,
     required: true,
   },
+  audioFileName: {
+    type: String,
+    required: true,
+    default: "N/A",
+  },
 });
 
 //the below is a static method that will be used to get all the flashcards for a user

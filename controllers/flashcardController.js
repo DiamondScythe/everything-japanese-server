@@ -33,6 +33,7 @@ module.exports.flashcards_post = async (req, res) => {
       stats: { N: 0, EF: 2.5, I: 0 },
       lastReviewed: new Date(),
       nextReview: new Date(),
+      audioFileName: example.audioFileName,
     };
     flashcards.push(flashcard);
   });
