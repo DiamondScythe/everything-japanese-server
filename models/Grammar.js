@@ -18,6 +18,8 @@ const grammarPartSchema = new Schema({
       },
       audioFileName: {
         type: String,
+        required: true,
+        default: "N/A",
       },
     },
   ],

@@ -39,3 +39,6 @@ nyc_output/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+#generated audio files
+audio/
