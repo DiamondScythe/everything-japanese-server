@@ -1,22 +1,18 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const vocabSchema = new Schema({
-  word: {
+const vocabPartSchema = new Schema({
+  explanation: {
     type: String,
     required: true,
   },
-  furigana: {
-    type: String,
-    required: true,
-  },
-  meanings: [
+  examples: [
     {
-      meaning: {
+      word: {
         type: String,
         required: true,
       },
-      notes: {
+      furigana: {
         type: String,
         required: true,
       },
@@ -28,21 +24,48 @@ const vocabSchema = new Schema({
         type: String,
         required: true,
       },
+      wordAudioFileName: {
+        type: String,
+        required: true,
+        default: "N/A",
+      },
+      exampleAudioFileName: {
+        type: String,
+        required: true,
+        default: "N/A",
+      },
+      imageFileName: {
+        type: String,
+        required: true,
+        default: "N/A",
+      },
     },
   ],
-  illustration: {
-    filePath: {
-      type: String,
-      required: function () {
-        return !!this.illustration; // Only required if illustration is present
-      },
-    },
-    caption: {
-      type: String,
-      required: function () {
-        return !!this.illustration; // Only required if illustration is present
-      },
-    },
+});
+
+const vocabSchema = new Schema({
+  lessonNumber: {
+    type: Number,
+    required: true,
+    unique: true,
+  },
+  title: {
+    type: String,
+    required: true,
+  },
+  details: {
+    type: String,
+  },
+  parts: {
+    type: [vocabPartSchema],
+    default: [],
+  },
+  difficulty: {
+    type: String,
+    required: true,
+  },
+  summary: {
+    type: String,
   },
 });
 
@@ -61,6 +84,20 @@ vocabSchema.statics.getAllVocab = async function () {
   const vocab = await this.find({});
   if (vocab) {
     return vocab;
+  } else {
+    throw Error("No vocab found");
+  }
+};
+
+//the below is a static method that will push a new part to the parts array
+vocabSchema.statics.addPart = async function (lessonNumber, part) {
+  const updatedVocab = await this.findOneAndUpdate(
+    { lessonNumber: lessonNumber },
+    { $push: { parts: part } },
+    { new: true }
+  );
+  if (updatedVocab) {
+    return updatedVocab;
   } else {
     throw Error("No vocab found");
   }
