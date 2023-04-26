@@ -16,7 +16,7 @@ const grammarPartSchema = new Schema({
         type: String,
         required: true,
       },
-      audioFileName: {
+      exampleAudioFileName: {
         type: String,
         required: true,
         default: "N/A",

@@ -6,6 +6,7 @@ const morgan = require("morgan");
 const adminRoutes = require("../routes/adminRoutes");
 const grammarRoutes = require("../routes/grammarRoutes");
 const flashcardRoutes = require("../routes/flashcardRoutes");
+const vocabRoutes = require("../routes/vocabRoutes");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const fs = require("fs");
@@ -48,6 +49,7 @@ if (!fs.existsSync("./images")) {
 
 // Serve static files from a directory on your server
 app.use("/audio", express.static("audio"));
+app.use("/images", express.static("images"));
 
 //routes
 app.get("/test", (req, res) => {
@@ -60,3 +62,4 @@ app.use(lessonRoutes);
 app.use(adminRoutes);
 app.use(grammarRoutes);
 app.use(flashcardRoutes);
+app.use(vocabRoutes);

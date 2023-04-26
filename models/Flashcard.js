@@ -6,6 +6,14 @@ const flashcardSchema = new Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    required: true,
+    default: "Grammar",
+  },
+  word: {
+    type: String,
+  },
   card: {
     type: String,
     required: true,
@@ -49,9 +57,16 @@ const flashcardSchema = new Schema({
     type: Date,
     required: true,
   },
-  audioFileName: {
+  exampleAudioFileName: {
     type: String,
-    required: true,
+    default: "N/A",
+  },
+  wordAudioFileName: {
+    type: String,
+    default: "N/A",
+  },
+  imageFileName: {
+    type: String,
     default: "N/A",
   },
 });

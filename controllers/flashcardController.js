@@ -19,6 +19,8 @@ module.exports.flashcards_get = async (req, res) => {
 //add a set of flashcards to the base from an array sent in the body
 module.exports.flashcards_post = async (req, res) => {
   const examples = req.body.examples;
+  const type = req.body.type;
+
   console.log(req.body);
   console.log(examples);
 
@@ -27,14 +29,34 @@ module.exports.flashcards_post = async (req, res) => {
   examples.forEach((example) => {
     const flashcard = {
       userId: req.body.userId,
+      type: type,
+      word: null,
       card: example.example,
       lessonNumber: req.body.lessonNumber,
       translation: example.translation,
       stats: { N: 0, EF: 2.5, I: 0 },
       lastReviewed: new Date(),
       nextReview: new Date(),
-      audioFileName: example.audioFileName,
+      exampleAudioFileName: null,
+      wordAudioFileName: null,
+      imageFileName: null,
     };
+    //if word is not null, add it to the flashcard object
+    if (example.word) {
+      flashcard.word = example.word;
+    }
+    //if exampleAudioFileName is not null, add it to the flashcard object
+    if (example.exampleAudioFileName) {
+      flashcard.exampleAudioFileName = example.exampleAudioFileName;
+    }
+    //if wordAudioFileName is not null, add it to the flashcard object
+    if (example.wordAudioFileName) {
+      flashcard.wordAudioFileName = example.wordAudioFileName;
+    }
+    //if imageFileName is not null, add it to the flashcard object
+    if (example.imageFileName) {
+      flashcard.imageFileName = example.imageFileName;
+    }
     flashcards.push(flashcard);
   });
 

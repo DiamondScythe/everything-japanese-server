@@ -39,7 +39,7 @@ module.exports.add_part = async (req, res) => {
     for (let i = 0; i < part.examples.length; i++) {
       const audioFileName = await synthesizeText(part.examples[i].example);
       //add the audio file name to the example object as a property
-      part.examples[i].audioFileName = audioFileName;
+      part.examples[i].exampleAudioFileName = audioFileName;
     }
   } catch (err) {
     console.log(err);

@@ -37,6 +37,24 @@ module.exports.vocab_get = async (req, res) => {
   }
 };
 
+module.exports.one_vocab_get = async (req, res) => {
+  //get one vocab in a try catch block
+  try {
+    const vocab = await Vocab.findOne({
+      lessonNumber: req.params.id,
+    });
+    res.json({
+      vocab: vocab,
+    });
+  } catch (err) {
+    console.log(err);
+    //res error message
+    res.status(400).json({
+      message: err,
+    });
+  }
+};
+
 module.exports.vocab_post = async (req, res) => {
   //add one vocab in a try catch block
   try {
