@@ -40,5 +40,6 @@ nyc_output/
 .DS_Store
 Thumbs.db
 
-#generated audio files
+#generated and uploaded files
 audio/
+images/

@@ -41,6 +41,11 @@ if (!fs.existsSync("./audio")) {
   fs.mkdirSync("./audio");
 }
 
+//checks for images folder and creates one if it doesn't exist
+if (!fs.existsSync("./images")) {
+  fs.mkdirSync("./images");
+}
+
 // Serve static files from a directory on your server
 app.use("/audio", express.static("audio"));
 
