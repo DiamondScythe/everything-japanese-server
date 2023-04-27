@@ -15,6 +15,7 @@ router.post("/addVocabPart", vocabController.add_part);
 // router.get("/oneVocab", vocabController.one_vocab_get);
 
 router.post("/deleteGrammarPart", grammarController.delete_grammar_part);
+router.post("/deleteGrammarLesson", grammarController.delete_grammar_lesson);
 
 router.post("/updateGrammar", grammarController.update_grammar);
 

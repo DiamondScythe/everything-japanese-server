@@ -121,8 +121,21 @@ module.exports.update_grammar = async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(400).json({
-      message: err,
+    res.status(400);
+  }
+};
+
+//delete a grammar entry in a try catch block
+module.exports.delete_grammar_lesson = async (req, res) => {
+  try {
+    const deletedGrammar = await Grammar.findOneAndDelete({
+      lessonNumber: req.body.lessonNumber,
     });
+    res.json({
+      deletedGrammar: deletedGrammar,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400);
   }
 };
