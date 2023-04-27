@@ -16,4 +16,6 @@ router.post("/addVocabPart", vocabController.add_part);
 
 router.post("/deleteGrammarPart", grammarController.delete_grammar_part);
 
+router.post("/updateGrammar", grammarController.update_grammar);
+
 module.exports = router;

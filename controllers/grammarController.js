@@ -107,3 +107,22 @@ module.exports.delete_grammar_part = async (req, res) => {
     });
   }
 };
+
+//update a grammar entry in a try catch block
+module.exports.update_grammar = async (req, res) => {
+  try {
+    const updatedGrammar = await Grammar.findOneAndUpdate(
+      { lessonNumber: req.body.lessonNumber },
+      req.body.grammar,
+      { new: true }
+    );
+    res.json({
+      updatedGrammar: updatedGrammar,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({
+      message: err,
+    });
+  }
+};
