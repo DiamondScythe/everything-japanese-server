@@ -74,3 +74,36 @@ module.exports.one_grammar_get = async (req, res) => {
     });
   }
 };
+
+module.exports.summary_get = async (req, res) => {
+  //get a grammar's summary based on the lesson number
+  try {
+    const summary = await Grammar.getSummary(req.params.id);
+    res.json({
+      summary: summary,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      message: err,
+    });
+  }
+};
+
+//delete a part from a grammar entry in a try catch block
+module.exports.delete_grammar_part = async (req, res) => {
+  try {
+    const updatedGrammar = await Grammar.deletePart(
+      req.body.lessonNumber,
+      req.body.partId
+    );
+    res.json({
+      updatedGrammar: updatedGrammar,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      message: err,
+    });
+  }
+};

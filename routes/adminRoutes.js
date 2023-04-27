@@ -14,4 +14,6 @@ router.post("/oneVocab", vocabController.vocab_post);
 router.post("/addVocabPart", vocabController.add_part);
 // router.get("/oneVocab", vocabController.one_vocab_get);
 
+router.post("/deleteGrammarPart", grammarController.delete_grammar_part);
+
 module.exports = router;

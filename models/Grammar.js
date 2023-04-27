@@ -86,5 +86,29 @@ grammarSchema.statics.addPart = async function (lessonNumber, part) {
   }
 };
 
+//the below static method will get a grammar lesson's summary
+grammarSchema.statics.getSummary = async function (lessonNumber) {
+  const grammar = await this.findOne({ lessonNumber: lessonNumber });
+  if (grammar) {
+    return grammar.summary;
+  } else {
+    throw Error("No grammar entry found");
+  }
+};
+
+//delete a grammar part from a grammar entry based on the lesson number and part _id
+grammarSchema.statics.deletePart = async function (lessonNumber, partId) {
+  const updatedGrammar = await this.findOneAndUpdate(
+    { lessonNumber: lessonNumber },
+    { $pull: { parts: { _id: partId } } },
+    { new: true }
+  );
+  if (updatedGrammar) {
+    return updatedGrammar;
+  } else {
+    throw Error("No grammar entry updated");
+  }
+};
+
 const Grammar = mongoose.model("grammar", grammarSchema);
 module.exports = Grammar;
