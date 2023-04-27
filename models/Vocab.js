@@ -103,5 +103,19 @@ vocabSchema.statics.addPart = async function (lessonNumber, part) {
   }
 };
 
+//delete a vocab part from a vocab entry based on the lesson number and part _id
+vocabSchema.statics.deletePart = async function (lessonNumber, partId) {
+  const updatedVocab = await this.findOneAndUpdate(
+    { lessonNumber: lessonNumber },
+    { $pull: { parts: { _id: partId } } },
+    { new: true }
+  );
+  if (updatedVocab) {
+    return updatedVocab;
+  } else {
+    throw Error("No vocab entry updated");
+  }
+};
+
 const Vocab = mongoose.model("vocab", vocabSchema);
 module.exports = Vocab;

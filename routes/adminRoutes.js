@@ -16,7 +16,10 @@ router.post("/addVocabPart", vocabController.add_part);
 
 router.post("/deleteGrammarPart", grammarController.delete_grammar_part);
 router.post("/deleteGrammarLesson", grammarController.delete_grammar_lesson);
-
 router.post("/updateGrammar", grammarController.update_grammar);
+
+router.post("/deleteVocabPart", vocabController.delete_vocab_part);
+router.post("/deleteVocabLesson", vocabController.delete_vocab_lesson);
+router.post("/updateVocab", vocabController.update_vocab);
 
 module.exports = router;

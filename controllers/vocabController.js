@@ -114,3 +114,53 @@ module.exports.add_part = async (req, res) => {
     }
   });
 };
+
+//delete a part from a vocab entry in a try catch block
+module.exports.delete_vocab_part = async (req, res) => {
+  try {
+    const updatedVocab = await Vocab.deletePart(
+      req.body.lessonNumber,
+      req.body.partId
+    );
+    res.json({
+      updatedVocab: updatedVocab,
+    });
+  } catch (err) {
+    console.log(err);
+    res.json({
+      message: err,
+    });
+  }
+};
+
+//update a vocab entry in a try catch block
+module.exports.update_vocab = async (req, res) => {
+  try {
+    const updatedVocab = await Vocab.findOneAndUpdate(
+      { lessonNumber: req.body.lessonNumber },
+      req.body.vocab,
+      { new: true }
+    );
+    res.json({
+      updatedVocab: updatedVocab,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+  }
+};
+
+//delete a vocab entry in a try catch block
+module.exports.delete_vocab_lesson = async (req, res) => {
+  try {
+    const deletedVocab = await Vocab.findOneAndDelete({
+      lessonNumber: req.body.lessonNumber,
+    });
+    res.json({
+      deletedVocab: deletedVocab,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(400);
+  }
+};
