@@ -116,3 +116,72 @@ module.exports.user_auth = (req, res) => {
     console.log("auth failed");
   }
 };
+
+// add a completed grammar lesson's number to the user's data
+module.exports.add_completed_grammar_lesson = async (req, res) => {
+  const { id, lessonNumber } = req.body;
+  try {
+    const updatedUser = await User.addCompletedGrammarLesson(id, lessonNumber);
+    res.status(200).json({ user: updatedUser });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// add a completed vocabulary lesson's number to the user's data
+module.exports.add_completed_vocab_lesson = async (req, res) => {
+  const { id, lessonNumber } = req.body;
+  try {
+    const updatedUser = await User.addCompletedVocabLesson(id, lessonNumber);
+    res.status(200).json({ user: updatedUser });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// check if grammar lesson is completed
+module.exports.check_grammar_lesson = async (req, res) => {
+  const { id, lessonNumber } = req.body;
+  try {
+    const isCompleted = await User.checkGrammarLessonCompleted(
+      id,
+      lessonNumber
+    );
+    res.status(200).json({ isCompleted: isCompleted });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+// check if vocabulary lesson is completed
+module.exports.check_vocab_lesson = async (req, res) => {
+  const { id, lessonNumber } = req.body;
+  try {
+    const isCompleted = await User.checkVocabLessonCompleted(id, lessonNumber);
+    res.status(200).json({ isCompleted: isCompleted });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+//get completed grammar lessons
+module.exports.get_completed_grammar_lessons = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const completedLessons = await User.getCompletedGrammarLessons(id);
+    res.status(200).json({ completedLessons: completedLessons });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
+//get completed vocabulary lessons
+module.exports.get_completed_vocab_lessons = async (req, res) => {
+  const { id } = req.body;
+  try {
+    const completedLessons = await User.getCompletedVocabLessons(id);
+    res.status(200).json({ completedLessons: completedLessons });
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
