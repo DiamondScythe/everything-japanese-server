@@ -20,7 +20,7 @@ function sm2Algorithm(q, n, EF, I) {
       EF = 1.3;
     }
     return { n, EF, I };
-  } catch {
+  } catch (err) {
     console.log(err);
   }
 }
