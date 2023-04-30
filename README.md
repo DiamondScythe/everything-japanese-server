@@ -35,3 +35,22 @@ npm install nodemon
 Make sure the server is running on port 3000. If it isn't, change the port number in src/server.js
 
 ```
+
+### Google's TTS API
+
+```
+The backend uses Google's TTS API to convert Japanese text to speech. To use this API, you need to have a Google Cloud account and a Google Cloud API key.
+
+Then, you need to replace the filepath with your own filepath inside helpers/gg-tts-api.js :
+
+const client = new textToSpeech.TextToSpeechClient({
+  projectId: "your-project-id",
+  keyFilename: "C:/path/to/your/keyfile.json",
+});
+
+for more information, contact the owner of this repository
+```
+
+```
+
+```
