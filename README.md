@@ -26,7 +26,7 @@ If MongoDB is installed, and Mongod service is running (connecting to MongoDB wi
 ```
 Run this while in server folder:
 
-nodemon src/app.js
+nodemon src/server.js
 
 Install nodemon to server folder with npm if nodemdon hasn't been installed.
 
