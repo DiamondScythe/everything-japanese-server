@@ -1,25 +1,25 @@
-function sm2Algorithm(q, n, EF, I) {
+function sm2Algorithm(q, N, EF, I) {
   try {
     if (q >= 3) {
       // correct response
-      if (n === 0) {
+      if (N === 0) {
         I = 1;
-      } else if (n === 1) {
+      } else if (N === 1) {
         I = 6;
       } else {
         I = Math.round(I * EF);
       }
-      n++;
+      N++;
     } else {
       // incorrect response
-      n = 0;
+      N = 0;
       I = 1;
     }
     EF = EF + (0.1 - (5 - q) * (0.08 + (5 - q) * 0.02));
     if (EF < 1.3) {
       EF = 1.3;
     }
-    return { n, EF, I };
+    return { N, EF, I };
   } catch (err) {
     console.log(err);
   }
